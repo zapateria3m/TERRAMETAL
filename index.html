@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tienda Virtual - 10 Productos con Carrusel</title>
+<style>
+  body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: linear-gradient(135deg, #f5f2eb, #e6d5c3, #c9a66b);
+    margin: 0;
+    padding: 20px;
+    text-align: center;
+  }
+  h1 {
+    color: #4b2e2e;
+    margin-bottom: 20px;
+    font-size: 2.5em;
+  }
+  .categorias {<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tienda Virtual - 10 Productos con Carrusel</title>
+<style>
+  body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: linear-gradient(135deg, #f5f2eb, #e6d5c3, #c9a66b);
+    margin: 0;
+    padding: 20px;
+    text-align: center;
+  }
+  h1 {
+    color: #4b2e2e;
+    margin-bottom: 20px;
+    font-size: 2.5em;
+  }
+  .categorias {
+    margin-bottom: 30px;
+  }
+  .categorias button {
+    background: #a47551;
+    color: white;
+    border: none;
+    padding: 12px 18px;
+    margin: 5px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background 0.3s, transform 0.3s;
+  }
+  .categorias button:hover {
+    background: #8b5e3c;
+    transform: scale(1.05);
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 25px;
+    max-width: 1200px;
+    margin: auto;
+  }
+  .card {
+    background: #fffdf9;
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+  }
+  .card img.main {
+    max-width: 100%;
+    max-height: 200px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    object-fit: cover;
+  }
+  .miniaturas {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+    margin-bottom: 10px;
+  }
+  .miniaturas img {
+    width: 30px;
+    height: 30px;
+    object-fit: cover;
+    cursor: pointer;
+    border-radius: 5px;
+    border: 2px solid transparent;
+    transition: border 0.3s;
+  }
+  .miniaturas img.active {
+    border: 2px solid #a47551;
+  }
+  .card h3 {
+    color: #4b2e2e;
+    margin: 10px 0;
+    font-size: 1.3em;
+  }
+  .price {
+    font-size: 20px;
+    color: #8b5e3c;
+    margin: 10px 0 15px;
+  }
+  .btn {
+    display: inline-block;
+    padding: 12px 20px;
+    background: #a47551;
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    font-size: 16px;
+    transition: background 0.3s, transform 0.3s;
+  }
+  .btn:hover {
+    background: #8b5e3c;
+    transform: scale(1.05);
+  }
+</style>
+</head>
+<body>
+
+<h1>TERRAMETAL</h1>
+
+<div class="categorias">
+  <button onclick="filtrar('Todos')">Todos</button>
+  <button onclick="filtrar('Muebles')">Muebles</button>
+  <button onclick="filtrar('Acero')">Acero</button>
+  <button onclick="filtrar('Melamina')">Melamina</button>
+  <button onclick="filtrar('Corte Láser')">Corte Láser</button>
+</div>
+
+<div class="grid" id="productos"></div>
+
+<script>
+const productos = [
+  { nombre: "Silla de Melamina", precio: 500, imagenes: ["1_1.jpg","1_2.jpg","1_3.jpg"], link: "https://mpago.la/1DzHnec", categoria: "Muebles" },
+  { nombre: "Mesa de Acero", precio: 1200, imagenes: ["2_1.jpg","2_2.jpg","2_3.jpg"], link: "https://mpago.la/1DzHnec", categoria: "Acero" },
+  { nombre: "Banco de Melamina", precio: 300, imagenes: ["3_1.jpg","3_2.jpg","3_3.jpg"], link: "https://mpago.la/1DzHnec", categoria: "Melamina" },
+  { nombre: "Estante Metálico", precio: 800, imagenes: ["4_1.jpg","4_2.jpg","4_3.jpg"], link: "https://mpago.la/1DzHnec", categoria: "Acero" },
+  { nombre: "Espejo Decorativo", precio: 400, imagenes: ["5_1.jpg","5_2.jpg","5_3.jpg"], link: "https://mpago.la/1DzHnec", categoria: "Corte Láser" },
+  { nombre: "Mesa de Centro", precio: 950, imagenes: ["6_1.jpg","6_2.jpg","6_3.jpg"], link: "https://mpago.la/1DzHnec", categoria: "Muebles" },
+  { nombre: "Lámpara de Corte Láser", precio: 250, imagenes: ["7_1.jpg","7_2.jpg","7_3.jpg"], link: "https://mpago.la/1DzHnec", categoria: "Corte Láser" },
+  { nombre: "Puerta de Melamina", precio: 1500, imagenes: ["8_1.jpg","8_2.jpg","8_3.jpg"], link: "https://mpago.la/1DzHnec", categoria: "Melamina" },
+  { nombre: "Repisas Metálicas", precio: 700, imagenes: ["9_1.jpg","9_2.jpg","9_3.jpg"], link: "https://mpago.la/1DzHnec", categoria: "Acero" },
+  { nombre: "Marco de Cuadro", precio: 150, imagenes: ["10_1.jpg","10_2.jpg","10_3.jpg"], link: "https://mpago.la/1DzHnec", categoria: "Corte Láser" }
+];
+
+let contenedor = document.getElementById('productos');
+let intervalId;
+
+function mostrarProductos(lista) {
+  contenedor.innerHTML = "";
+
+  lista.forEach((prod, index) => {
+    let div = document.createElement('div');
+    div.className = 'card';
+    div.dataset.index = index;
+    div.dataset.current = 0;
+
+    let miniaturasHTML = prod.imagenes.map((img,i)=>`<img src="img/${img}" onclick="cambiarPrincipal(${index},${i})" id="thumb${index}_${i}">`).join("");
+
+    div.innerHTML = `
+      <img class="main" id="main${index}" src="img/${prod.imagenes[0]}" alt="${prod.nombre}">
+      <div class="miniaturas">${miniaturasHTML}</div>
+      <h3>${prod.nombre}</h3>
+      <p class="price">$${prod.precio} MXN</p>
+      <a href="${prod.link}" target="_blank" class="btn">Comprar Ahora</a>
+    `;
+    contenedor.appendChild(div);
+
+    // Inicializar miniatura activa
+    document.getElementById(`thumb${index}_0`).classList.add('active');
+  });
+
+  // Carrusel automático 10 segundos por producto
+  if(intervalId) clearInterval(intervalId);
+  intervalId = setInterval(()=>{
+    lista.forEach((prod,index)=>{
+      const div = contenedor.children[index];
+      if(!div) return;
+      let current = parseInt(div.dataset.current);
+      let next = (current + 1) % prod.imagenes.length;
+      div.dataset.current = next;
+      const mainImg = document.getElementById(`main${index}`);
+      mainImg.src = "img/"+prod.imagenes[next];
+
+      // Actualizar miniatura activa
+      prod.imagenes.forEach((_,i)=>{
+        const thumb = document.getElementById(`thumb${index}_${i}`);
+        if(thumb) thumb.classList.toggle('active', i===next);
+      });
+    });
+  }, 10000); // ← Cambiado a 10 segundos
+}
+
+// Cambiar imagen principal al hacer clic en miniatura
+function cambiarPrincipal(productIndex, imgIndex){
+  const div = contenedor.children[productIndex];
+  div.dataset.current = imgIndex;
+  const mainImg = document.getElementById(`main${productIndex}`);
+  mainImg.src = "img/"+productos[productIndex].imagenes[imgIndex];
+
+  // Resaltar miniatura activa
+  productos[productIndex].imagenes.forEach((_,i)=>{
+    const thumb = document.getElementById(`thumb${productIndex}_${i}`);
+    if(thumb) thumb.classList.toggle('active', i===imgIndex);
+  });
+}
+
+// Filtrar por categoría
+function filtrar(categoria){
+  if(categoria==="Todos") mostrarProductos(productos);
+  else mostrarProductos(productos.filter(p=>p.categoria===categoria));
+}
+
+// Mostrar todos al inicio
+mostrarProductos(productos);
+</script>
+
+</body>
+</html>
+
+    margin-bottom: 30px;
+  }
+  .categorias button {
+    background: #a47551;
+    color: white;
+    border: none;
+    padding: 12px 18px;
+    margin: 5px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background 0.3s, transform 0.3s;
+  }
+  .categorias button:hover {
+    background: #8b5e3c;
+    transform: scale(1.05);
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 25px;
+    max-width: 1200px;
+    margin: auto;
+  }
+  .card {
+    background: #fffdf9;
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+  }
+  .card img.main {
+    max-width: 100%;
+    max-height: 200px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    object-fit: cover;
+  }
+  .miniaturas {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+  }
+  .miniaturas img {
+    width: 30px;
+    height: 30px;
+    object-fit: cover;
+    cursor: pointer;
+    border-radius: 5px;
+    border: 2px solid transparent;
+    transition: border 0.3s;
+  }
+  .miniaturas img:hover {
+    border: 2px solid #8b5e3c;
+  }
+  .card h3 {
+    color: #4b2e2e;
+    margin: 10px 0;
+    font-size: 1.3em;
+  }
+  .price {
+    font-size: 20px;
+    color: #8b5e3c;
+    margin: 10px 0 15px;
+  }
+  .btn {
+    display: inline-block;
+    padding: 12px 20px;
+    background: #a47551;
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    font-size: 16px;
+    transition: background 0.3s, transform 0.3s;
+  }
+  .btn:hover {
+    background: #8b5e3c;
+    transform: scale(1.05);
+  }
+</style>
+</head>
+<body>
+
+<h1>TERRAMETAL</h1>
+
+<div class="categorias">
+  <button onclick="filtrar('Todos')">Todos</button>
+  <button onclick="filtrar('Muebles')">Muebles</button>
+  <button onclick="filtrar('Acero')">Acero</button>
+  <button onclick="filtrar('Melamina')">Melamina</button>
+  <button onclick="filtrar('Corte Láser')">Corte Láser</button>
+</div>
+
+<div class="grid" id="productos"></div>
+
+<script>
+const productos = [
+  { nombre: "Silla de Melamina", precio: 500, imagenes: ["1_1.jpg","1_2.jpg","1_3.jpg"], link: "https://mpago.la/1DzHnec", categoria: "Muebles" },
+  { nombre: "Mesa de Acero", precio: 1200, imagenes: ["2_1.jpg","2_2.jpg","2_3.jpg"], link: "https://mpago.la/1DzHnec", categoria: "Acero" },
+  { nombre: "Banco de Melamina", precio: 300, imagenes: ["3_1.jpg","3_2.jpg","3_3.jpg"], link: "https://mpago.la/1DzHnec", categoria: "Melamina" },
+  { nombre: "Estante Metálico", precio: 800, imagenes: ["4_1.jpg","4_2.jpg","4_3.jpg"], link: "https://mpago.la/1DzHnec", categoria: "Acero" },
+  { nombre: "Espejo Decorativo", precio: 400, imagenes: ["5_1.jpg","5_2.jpg","5_3.jpg"], link: "https://mpago.la/1DzHnec", categoria: "Corte Láser" },
+  { nombre: "Mesa de Centro", precio: 950, imagenes: ["6_1.jpg","6_2.jpg","6_3.jpg"], link: "https://mpago.la/1DzHnec", categoria: "Muebles" },
+  { nombre: "Lámpara de Corte Láser", precio: 250, imagenes: ["7_1.jpg","7_2.jpg","7_3.jpg"], link: "https://mpago.la/1DzHnec", categoria: "Corte Láser" },
+  { nombre: "Puerta de Melamina", precio: 1500, imagenes: ["8_1.jpg","8_2.jpg","8_3.jpg"], link: "https://mpago.la/1DzHnec", categoria: "Melamina" },
+  { nombre: "Repisas Metálicas", precio: 700, imagenes: ["9_1.jpg","9_2.jpg","9_3.jpg"], link: "https://mpago.la/1DzHnec", categoria: "Acero" },
+  { nombre: "Marco de Cuadro", precio: 150, imagenes: ["10_1.jpg","10_2.jpg","10_3.jpg"], link: "https://mpago.la/1DzHnec", categoria: "Corte Láser" }
+];
+
+const contenedor = document.getElementById('productos');
+
+function mostrarProductos(lista) {
+  contenedor.innerHTML = "";
+  lista.forEach((prod, index) => {
+    let div = document.createElement('div');
+    div.className = 'card';
+    div.dataset.index = index;
+    div.dataset.current = 0;
+
+    let miniaturasHTML = prod.imagenes.map((img,i)=>`<img src="img/${img}" onclick="cambiarPrincipal(${index},${i})">`).join("");
+
+    div.innerHTML = `
+      <img class="main" id="main${index}" src="img/${prod.imagenes[0]}" alt="${prod.nombre}">
+      <div class="miniaturas">${miniaturasHTML}</div>
+      <h3>${prod.nombre}</h3>
+      <p class="price">$${prod.precio} MXN</p>
+      <a href="${prod.link}" target="_blank" class="btn">Comprar Ahora</a>
+    `;
+    contenedor.appendChild(div);
+
+    // Carrusel automático cada 3s
+    setInterval(()=>{
+      let current = parseInt(div.dataset.current);
+      current = (current +1) % prod.imagenes.length;
+      div.dataset.current = current;
+      document.getElementById(`main${index}`).src = "img/"+prod.imagenes[current];
+    },3000);
+  });
+}
+
+// Cambiar imagen principal al hacer clic en miniatura
+function cambiarPrincipal(productIndex, imgIndex){
+  const div = contenedor.children[productIndex];
+  div.dataset.current = imgIndex;
+  document.getElementById(`main${productIndex}`).src = "img/"+productos[productIndex].imagenes[imgIndex];
+}
+
+function filtrar(categoria) {
+  if (categoria === "Todos") mostrarProductos(productos);
+  else mostrarProductos(productos.filter(p => p.categoria===categoria));
+}
+
+// Mostrar todos al inicio
+mostrarProductos(productos);
+</script>
+
+</body>
+</html>
